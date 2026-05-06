@@ -1,112 +1,137 @@
-Used flint for code and presentation assistance: https://app.flintk12.com/chats/05f130ff-096b-4e1d-8294-3905ecc70978
+# Pokédex: Advanced Data Structures
 
-Pokédex: Advanced Data Structures
-Project Overview
-Pokédex: Advanced Data Structures is a C++ capstone project that demonstrates practical applications of advanced data structures and algorithms. The project implements a comprehensive Pokédex system that manages and analyzes a dataset of 1025 Pokémon from PokéAPI, showcasing how different data structures optimize performance for real-world use cases.
-This project serves as both an educational tool and a functional application, allowing users to explore Pokémon data while learning about the performance characteristics of unordered maps, 2D arrays, priority queues, and sorting algorithms in production-grade C++ code.
-Features
+## Project Overview
+**Pokédex: Advanced Data Structures** is a C++ capstone project demonstrating practical applications of advanced data structures and algorithms. It implements a full Pokédex system managing and analyzing a dataset of **1025 Pokémon** from **PokéAPI**, showcasing how different data structures optimize performance for real-world use cases.
 
-Pokédex Browser — Search and retrieve individual Pokémon by name or ID with instant lookups using hash tables
-Counter-Team Builder — Construct optimal battle teams using a greedy algorithm with priority queues to maximize type coverage and effectiveness
-Team Optimizer — Analyze team compositions using a 2D type-effectiveness matrix to calculate coverage and identify weaknesses
-Pokémon Sorter — Sort the entire dataset by various attributes (name, base stats, generation) using multiple sorting algorithms
-Performance Benchmark Suite — Compare real-world performance metrics across different data structures and algorithms with detailed timing analysis
+This project serves as both an educational tool and a functional application, allowing users to explore Pokémon data while learning about the performance characteristics of `unordered_map`, 2D arrays, `priority_queue`, and sorting algorithms in production-grade C++.
 
-Data Structures & Algorithms
+---
 
-Data Structure
-Use Case
-Time Complexity
-Space Complexity
+## Features
 
-std::unordered_map
-Primary Pokédex storage; O(1) name/ID lookups
-O(1) average, O(n) worst
-O(n)
+- **Pokédex Browser** — Instant Pokémon lookup by name or ID using hash tables  
+- **Counter-Team Builder** — Greedy algorithm using `priority_queue` to construct optimal counter teams  
+- **Team Optimizer** — 2D type-effectiveness matrix for team coverage and weakness analysis  
+- **Pokémon Sorter** — Sort dataset by name, stats, or generation using multiple sorting algorithms  
+- **Performance Benchmark Suite** — Compare real-world performance across data structures and algorithms  
 
-2D float matrix (1025×18)
-Type-effectiveness graph; team coverage analysis
-O(1) access, O(n²) traversal
-O(n²)
+---
 
-std::priority_queue
-Greedy team building; heap-based selection
-O(log n) insertion/extraction
-O(n)
+## Data Structures & Algorithms
 
-std::vector
-Dataset storage and sorting operations
-O(n) iteration, O(1) indexed access
-O(n)
+### Summary Table
 
-std::sort (introsort)
-General-purpose sorting; optimal for mixed data
-O(n log n) average, O(n log n) worst
-O(log n)
+| Data Structure | Use Case | Time Complexity | Space Complexity |
+|---------------|----------|----------------|-----------------|
+| **`std::unordered_map`** | Primary Pokédex storage; O(1) name/ID lookups | O(1) avg, O(n) worst | O(n) |
+| **2D float matrix (1025×18)** | Type-effectiveness graph; team coverage | O(1) access, O(n²) traversal | O(n²) |
+| **`std::priority_queue`** | Greedy team building | O(log n) insert/extract | O(n) |
+| **`std::vector`** | Dataset storage & sorting | O(n) iteration, O(1) access | O(n) |
+| **`std::sort` (introsort)** | General-purpose sorting | O(n log n) | O(log n) |
+| **Merge sort** | Stable sorting | O(n log n) | O(n) |
+| **Insertion sort** | Nearly-sorted/small datasets | O(n²) worst, O(n) best | O(1) |
 
-Merge sort
-Stable sorting for consistent ordering
-O(n log n) guaranteed
-O(n)
+---
 
-Insertion sort
-Small dataset optimization; nearly-sorted data
-O(n²) worst, O(n) best
-O(1)
+## Project Structure
 
-Project Structure
+```
 pokedex-advanced-data-structures/
 ├── src/
-│   ├── main.cpp                 # Entry point; menu system and user interface
-│   ├── Pokedex.h                # Pokédex class definition with data structure declarations
-│   ├── Pokedex.cpp              # Core Pokédex implementation (unordered_map, 2D matrix)
-│   ├── TeamBuilder.h             # Counter-team builder interface
-│   ├── TeamBuilder.cpp           # Greedy algorithm using priority_queue
-│   ├── Sorter.h                  # Sorting algorithm interface
-│   ├── Sorter.cpp                # Multiple sort implementations (introsort, merge, insertion)
-│   ├── BenchmarkSuite.h          # Performance testing framework
-│   └── BenchmarkSuite.cpp        # Benchmark implementations and timing utilities
+│   ├── main.cpp                 # Entry point; menu system and UI
+│   ├── Pokedex.h                # Pokédex class definition
+│   ├── Pokedex.cpp              # Core implementation (unordered_map, 2D matrix)
+│   ├── TeamBuilder.h            # Counter-team builder interface
+│   ├── TeamBuilder.cpp          # Greedy algorithm using priority_queue
+│   ├── Sorter.h                 # Sorting algorithm interface
+│   ├── Sorter.cpp               # Introsort, merge sort, insertion sort
+│   ├── BenchmarkSuite.h         # Performance testing framework
+│   └── BenchmarkSuite.cpp       # Benchmark implementations
 ├── data/
-│   └── pokedex_cache.json        # Cached Pokémon data (generated on first run)
-├── CMakeLists.txt                # Build configuration
-├── Makefile                       # Alternative build system
-├── README.md                      # This file
-└── LICENSE                        # MIT License
-Dependencies
+│   └── pokedex_cache.json       # Cached Pokémon data
+├── CMakeLists.txt               # Build configuration
+├── Makefile                     # Alternative build system
+├── README.md                    # This file
+└── LICENSE                      # MIT License
+```
 
-C++17 Compiler — GCC 7+, Clang 5+, or MSVC 2017+
-libcurl — For HTTP requests to PokéAPI (development headers required)
-nlohmann/json — JSON parsing library (header-only, included)
-PokéAPI — Remote API accessed on first run; requires internet connection
+---
 
-Installing Dependencies
-Ubuntu/Debian:
+## Dependencies
+
+- **C++17 compiler** — GCC 7+, Clang 5+, MSVC 2017+  
+- **libcurl** — For HTTP requests  
+- **nlohmann/json** — Header-only JSON library  
+- **PokéAPI** — Remote API accessed on first run  
+
+### Installing Dependencies
+
+**Ubuntu/Debian**
+```bash
 sudo apt-get install libcurl4-openssl-dev
-macOS:
+```
+
+**macOS**
+```bash
 brew install curl
-Windows (MSVC):
-Use vcpkg: vcpkg install curl:x64-windows
-Build Instructions
-Using g++ (Command Line):
+```
+
+**Windows (MSVC via vcpkg)**
+```bash
+vcpkg install curl:x64-windows
+```
+
+---
+
+## Build Instructions
+
+### Using g++
+```bash
 g++ -std=c++17 -O2 -o pokedex src/*.cpp -lcurl -I./include
-Using CMake:
+```
+
+### Using CMake
+```bash
 mkdir build && cd build
 cmake ..
 make
-Using Make:
+```
+
+### Using Make
+```bash
 make build
-First Run
-On initial execution, the program fetches all 1025 Pokémon from PokéAPI. This process typically takes 30-60 seconds depending on network speed and system performance. The data is automatically cached to pokedex_cache.json in the project root directory.
-Subsequent runs load from the local cache instantly (typically <100ms), providing immediate access to the full dataset without network overhead. To refresh the cache, simply delete pokedex_cache.json and run the program again.
-The cache file contains:
+```
 
-All 1025 Pokémon records with complete attributes
-Type information and effectiveness relationships
-Base statistics (HP, Attack, Defense, Sp. Atk, Sp. Def, Speed)
-Generation and regional classification data
+---
 
-Usage
-Launch the program and interact with the main menu:
+## First Run
+
+On first execution, the program fetches all **1025 Pokémon** from PokéAPI.  
+This takes **30–60 seconds** depending on network speed.
+
+A cache file is generated:
+
+```
+pokedex_cache.json
+```
+
+Subsequent runs load instantly (**<100ms**).  
+To refresh the cache, delete the file and rerun.
+
+The cache includes:
+
+- All Pokémon attributes  
+- Type information & effectiveness  
+- Base stats  
+- Generation & regional data  
+
+---
+
+## Usage
+
+Launch the program to access the main menu:
+
+```
 ========================================
 POKÉDEX: Advanced Data Structures
 ========================================
@@ -116,88 +141,74 @@ POKÉDEX: Advanced Data Structures
 4. Pokémon Sorter
 5. Performance Benchmark Suite
 0. Exit
+```
 
-Select an option:
-Pokédex Browser: Enter a Pokémon name or ID to retrieve complete information. Uses unordered_map for O(1) average-case lookup.
-Counter-Team Builder: Specify a target Pokémon type, and the system builds a 6-Pokémon team optimized for coverage using a greedy algorithm with priority queues.
-Team Optimizer: Analyzes your custom team using the 2D type-effectiveness matrix to show coverage, weaknesses, and resistances.
-Pokémon Sorter: Choose a sorting attribute and algorithm to sort the entire dataset. Compare execution times across different sorting implementations.
-Performance Benchmark Suite: Run comprehensive benchmarks comparing data structures and algorithms with detailed timing metrics.
-Benchmark Results
-The following benchmark results were obtained on a system with Intel i7-9700K CPU running the complete 1025-Pokémon dataset:
+### Modes
 
-Operation
-Implementation
-Time (µs)
-Relative Performance
-Key Insight
+- **Pokédex Browser** — O(1) lookup via `unordered_map`  
+- **Counter-Team Builder** — Greedy algorithm using `priority_queue`  
+- **Team Optimizer** — 2D type-effectiveness matrix analysis  
+- **Pokémon Sorter** — Compare sorting algorithms  
+- **Benchmark Suite** — Performance metrics for all structures  
 
-1000 Random Lookups
-unordered_map (hash table)
-0.89
-18× faster
-O(1) hash lookups dominate
+---
 
-Linear scan (vector)
-18.2
-baseline
-O(n) sequential search
+## Benchmark Results
 
-Type-Effectiveness Graph
-2D float matrix (1025×18)
-—
-16× less memory
-1 KB vs 16 KB for map-of-maps
+Benchmarks run on **Intel i7‑9700K** with full dataset.
 
-std::map
-—
-baseline
-Nested structure overhead
+### Lookup Performance
 
-Sort 1025 Pokémon by Name
-std::sort (introsort)
-151
-3.5× faster
-Hybrid algorithm optimal for real data
+| Operation | Implementation | Time (µs) | Relative | Insight |
+|----------|----------------|-----------|----------|---------|
+| 1000 Random Lookups | `unordered_map` | **0.89** | 18× faster | Hash lookup dominates |
+| 1000 Random Lookups | Linear scan | 18.2 | baseline | Sequential O(n) |
 
-Merge sort (stable)
-523
-baseline
-Guaranteed O(n log n), higher overhead
+### Type-Effectiveness Graph
 
-Insertion sort (small sets)
-2847
-18× slower
-Only efficient for n < 50</td>
+| Structure | Memory | Insight |
+|----------|--------|---------|
+| 2D float matrix | **1 KB** | 16× less memory |
+| `std::map` | 16 KB | Nested overhead |
 
-Extract Top 6 from Heap
-priority_queue (heap extraction)
-9865
-7.3× faster
-O(log n) per extraction; optimal for k-selection
+### Sorting
 
-Pre-sorted vector (linear scan)
-1345
-baseline
-One-time O(n log n) sort, then O(k) access
+| Sort | Time (µs) | Relative | Insight |
+|------|-----------|----------|---------|
+| `std::sort` | **151** | 3.5× faster | Hybrid introsort |
+| Merge sort | 523 | baseline | Higher overhead |
+| Insertion sort | 2847 | 18× slower | Only good for n < 50 |
 
-Greedy Team Building (Full Coverage)
-Priority queue approach
-71155
-1.02× slower
-Maintains heap invariant; more flexible
+### Team Building
 
-Sorted vector greedy
-69886
-baseline
-Pre-computed ordering; minimal overhead
+| Operation | Implementation | Time (µs) | Relative | Insight |
+|-----------|----------------|-----------|----------|---------|
+| Extract Top 6 | `priority_queue` | **9865** | 7.3× faster | O(log n) extraction |
+| Extract Top 6 | Pre-sorted vector | 1345 | baseline | O(k) access |
 
-Benchmark Insights
-Hash tables (unordered_map) provide dramatic speedups for lookup-heavy workloads, achieving 18× performance gains over linear scans. This demonstrates why hash-based data structures are fundamental to database design.
-2D arrays consume 16× less memory than nested maps for the type-effectiveness graph, highlighting the importance of choosing appropriate data structures for dense, multi-dimensional data.
-Introsort (std::sort) outperforms pure merge sort by 3.5× through adaptive hybrid switching, validating modern STL design choices for general-purpose sorting.
-Pre-sorting followed by linear selection outperforms heap extraction for small k values, suggesting that algorithmic choice depends heavily on problem parameters.
-Author
-Lance Hackman Durham Academy Class of 2026
+---
 
-This project demonstrates advanced C++ data structures and algorithms in a practical, real-world application context. For questions or contributions, please refer to the project repository.
+## Benchmark Insights
+
+- **Hash tables** deliver **18× faster** lookups than linear scans.  
+- **2D arrays** use **16× less memory** than nested maps.  
+- **Introsort** outperforms merge sort by **3.5×** on real-world data.  
+- **Pre-sorting** can outperform heaps for small `k`, showing algorithm choice depends on constraints.
+
+---
+
+## AI DISCLOSURE
+
+Code, presentation ,logic, documentation, debugging
+
+Google Search
+https://app.flintk12.com/chats/05f130ff-096b-4e1d-8294-3905ecc70978
+https://app.flintk12.com/chats/4dcf14f3-b35a-47e7-be6f-ebfc97f05a47
+---
+
+## Author
+
+**Lance Hackman**  
+Durham Academy — Class of 2026
+
+This project demonstrates advanced C++ data structures and algorithms in a practical, real-world context. Contributions and questions are welcome via the project repository.
