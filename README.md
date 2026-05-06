@@ -1,6 +1,6 @@
 Used flint for code and presentation assistance: https://app.flintk12.com/chats/05f130ff-096b-4e1d-8294-3905ecc70978
 
-README — Pokédex: Advanced Data Structures
+Pokédex: Advanced Data Structures
 Project Overview
 Pokédex: Advanced Data Structures is a C++ capstone project that demonstrates practical applications of advanced data structures and algorithms. The project implements a comprehensive Pokédex system that manages and analyzes a dataset of 1025 Pokémon from PokéAPI, showcasing how different data structures optimize performance for real-world use cases.
 This project serves as both an educational tool and a functional application, allowing users to explore Pokémon data while learning about the performance characteristics of unordered maps, 2D arrays, priority queues, and sorting algorithms in production-grade C++ code.
