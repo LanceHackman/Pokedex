@@ -1,0 +1,121 @@
+
+╔══════════════════════════════════════════════════════════╗
+║        POKÉDEX — FULL PERFORMANCE BENCHMARK REPORT       ║
+╠══════════════════════════════════════════════════════════╣
+║  Generated: Wed May  6 10:54:55 2026  ║
+║  Dataset:   1024 Pokémon loaded from cache               ║
+╚══════════════════════════════════════════════════════════╝
+
+
+  ┌───┐
+  │  1. POKÉDEX LOOKUP  (unordered_map vs linear scan)   │
+  └───────┘
+
+  Algorithm : unordered_map (hash)
+  Metric    : Name lookup × 3 per call
+  Time      : 0 µs  (0.0K ops/sec)
+  Memory    : not measured
+  Complexity: O(1) avg
+  Notes     : Hash map with separate chaining
+
+  Algorithm : Linear scan (vector)
+  Metric    : Scan until name match
+  Time      : 18 µs  (55.6K ops/sec)
+  Memory    : not measured
+  Complexity: O(n)
+  Notes     : Simulates worst case of unsorted vector
+
+  to Hash map is ~18× faster than linear scan for name lookup.
+
+
+  ┌───┐
+  │  2. TYPEGRAPH  (adjacency matrix vs map-of-maps)      │
+  └───────┘
+
+  Algorithm : 2D array [18][18]
+  Metric    : Single type effectiveness call
+  Time      : 0 µs  (3000.0K ops/sec)
+  Memory    : 1 KB delta
+  Complexity: O(1)
+  Notes     : Stack-allocated, cache-friendly
+
+  Algorithm : unordered_map<string, map>
+  Metric    : Single type effectiveness call
+  Time      : 0 µs  (0.0K ops/sec)
+  Memory    : 16 KB delta
+  Complexity: O(1) avg
+  Notes     : Two hash lookups + heap allocation per call
+
+  to Array is ~0× faster than map-of-maps.
+
+
+  ┌───┐
+  │  3. CANDIDATE HEAP  (priority_queue vs sorted vector) │
+  └───────┘
+
+  Algorithm : priority_queue (max-heap)
+  Metric    : Build heap from 1025 Pokémon + 1 pop
+  Time      : 9865 µs  (0.1K ops/sec)
+  Memory    : not measured
+  Complexity: O(n log n) build, O(log n) pop
+  Notes     : Each pop surfaces best-scoring Pokémon
+
+  Algorithm : Full sort (vector + std::sort)
+  Metric    : Score all + sort to find best
+  Time      : 1345 µs  (0.7K ops/sec)
+  Memory    : not measured
+  Complexity: O(n log n)
+  Notes     : Sorts entire pool even if only top-k needed
+
+  to Heap and sort have similar complexity; heap wins when
+    only top-k results are needed (no wasted comparisons).
+
+
+  ┌───┐
+  │  4. SORTING  (STL introsort vs merge sort vs insertion sort)│
+  └───────┘
+
+  Criterion: Base Stat Total
+  Algorithm : STL introsort
+  Metric    : Sort 1024 Pokémon by Base Stat Total
+  Time      : 151 µs  (6.6K ops/sec)
+  Memory    : not measured
+  Complexity: O(n log n)
+  Notes     : Hybrid quicksort/heapsort/insertion
+
+  Algorithm : Merge sort
+  Metric    : Sort 1024 Pokémon by Base Stat Total
+  Time      : 523 µs  (1.9K ops/sec)
+  Memory    : not measured
+  Complexity: O(n log n)
+  Notes     : Stable, recursive divide-and-conquer
+
+  Algorithm : Insertion sort (n=200)
+  Metric    : Sort 200 Pokémon by Base Stat Total
+  Time      : 143 µs  (7.0K ops/sec)
+  Memory    : not measured
+  Complexity: O(n²)
+  Notes     : Included to demonstrate quadratic scaling
+
+
+  Criterion: Speed
+  Algorithm : STL introsort
+  Metric    : Sort 1024 Pokémon by Speed
+  Time      : 111 µs  (9.0K ops/sec)
+  Memory    : not measured
+  Complexity: O(n log n)
+  Notes     : Hybrid quicksort/heapsort/insertion
+
+  Algorithm : Merge sort
+  Metric    : Sort 1024 Pokémon by Speed
+  Time      : 501 µs  (2.0K ops/sec)
+  Memory    : not measured
+  Complexity: O(n log n)
+  Notes     : Stable, recursive divide-and-conquer
+
+  Algorithm : Insertion sort (n=200)
+  Metric    : Sort 200 Pokémon by Speed
+  Time      : 102 µs  (9.8K ops/sec)
+  Memory    : not measured
+  Complexity: O(n²)
+  Notes     : Included t
